@@ -36,6 +36,16 @@ var (
 	qpcFrequency = queryPerformanceFrequency()
 )
 
+var (
+	modkernel32                   = syscall.NewLazyDLL("kernel32.dll")
+	queryPerformanceFrequencyProc = modkernel32.NewProc_Seq("QueryPerformanceFrequency")
+	queryPerformanceCounterProc   = modkernel32.NewProc("QueryPerformanceCounter")
+
+	qpcFrequency = queryPerformanceFrequency()
+)
+
+func queryPerformanceFrequency returns frequency in ticks per second
+
 // queryPerformanceFrequency returns frequency in ticks per second
 func queryPerformanceFrequency() int64 {
 	var freq int64
